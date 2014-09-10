@@ -18,28 +18,28 @@ func main() {
 
 	//TODO:Add some validation...but whatever for now
 
-	seedbot := Seedbot{
+	chatbot := ChatBot{
 		bot.NewXMPPBot(host, user, pass, room, name),
 		[]bot.Plugin{
 			bot.PluginEcho{},
 		},
 	}
-	err := seedbot.Connect()
+	err := chatbot.Connect()
 	if err != nil {
 		log.Fatalln(err)
 	}
 
 	recv := make(chan bot.Message)
-	seedbot.Listen(recv)
+	chatbot.Listen(recv)
 
 	for msg := range recv {
-		for _, p := range seedbot.Plugins {
-			p.Execute(msg, seedbot)
+		for _, p := range chatbot.Plugins {
+			p.Execute(msg, chatbot)
 		}
 	}
 }
 
-type Seedbot struct {
+type ChatBot struct {
 	*bot.XMPPBot
 	Plugins []bot.Plugin
 }
