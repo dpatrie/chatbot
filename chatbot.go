@@ -6,7 +6,6 @@ import (
 	"log"
 )
 
-//TODO: Command-line params
 func main() {
 	var host, user, pass, room, name string
 	flag.StringVar(&host, "host", "", "Hostname:port of the XMPP server")
